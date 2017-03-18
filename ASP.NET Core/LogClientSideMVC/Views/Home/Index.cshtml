@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>Sezione Fatture</h1>
+<div class="row">
+    <div class="col-md-3">
+        <button class="btn btn-info" onclick="infoFatture()">Information</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary" onclick="debugFatture()">Debug</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-warning" onclick="errorFatture()">Error</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-danger" onclick="fatalFatture()">Fatal</button>
+    </div>
+</div>
+<h1>Sezione Prodotti <small>loggo solo il fatal</small></h1>
+<div class="row">
+    <div class="col-md-3">
+        <button class="btn btn-info" onclick="infoProdotti()">Information</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary"onclick="debugProdotti()">Debug</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-warning" onclick="errorProdotti()">Error</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-danger" onclick="fatalProdotti()">Fatal</button>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        JL("fatture");
+        JL("prodotti").setOptions({ level: 5000 });
+        function infoFatture() {
+            let fattura = { nome: "FatturaInfo", anno : 2017, numero : 1, metadata : [ 1, 2 ,3]};
+            JL("fatture").info({ msg: "log info fattura", fattura: fattura });
+        }
+        function debugFatture() {
+            let fattura = { nome: "FatturaDebug", anno: 2017, numero: 1, metadata: [1, 2, 3] };
+            JL("fatture").debug({ msg: "log debug fattura", fattura: fattura });
+        }
+        function errorFatture() {
+            try {
+                if ((1 / 0) == Infinity) throw Infinity;   
+            }
+            catch (e) {
+                JL("fatture").error({ msg: "log errore fattura", error: e });
+            }
+        }
+        function fatalFatture() {
+            try {
+                if ((1 / 0) == Infinity) throw Infinity;                
+            }
+            catch (e) {
+                JL("fatture").fatalException({ msg: "log errore fattura" }, e);
+            }
+        }
+
+
+
+
+        
+        function infoProdotti() {
+            let fattura = { nome: "FatturaInfo", anno: 2017, numero: 1, metadata: [1, 2, 3] };
+            JL("prodotti").info({ msg: "log info prodotti", fattura: fattura });
+        }
+        function debugProdotti() {
+            let fattura = { nome: "FatturaDebug", anno: 2017, numero: 1, metadata: [1, 2, 3] };
+            JL("prodotti").debug({ msg: "log debug prodotti", fattura: fattura });
+        }
+        function errorProdotti() {
+            try {
+                if ((1 / 0) == Infinity) throw Infinity;   
+            }
+            catch (e) {
+                JL("prodotti").error({ msg: "log errore prodotti", error: e });
+            }
+        }
+        function fatalProdotti() {
+            try {
+                if ((1 / 0) == Infinity) throw Infinity;   
+            }
+            catch (e) {
+                JL("prodotti").fatalException({ msg: "log errore prodotti" }, e);
+            }
+        }
+    </script>      
+}
